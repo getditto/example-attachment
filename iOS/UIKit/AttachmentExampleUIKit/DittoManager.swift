@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 import DittoSwift
 
 // Documentation: https://docs.ditto.live/
@@ -25,11 +26,13 @@ final class DittoManager {
 
     @Published private(set) var attachmentTokens = [[String: DittoAttachmentToken]]()
 
+    private var attachmentFetchers = [[String: DittoAttachmentFetcher?]]()
+
     private var fileManager = FileManager.default
 
     // Create your app in Portal: https://portal.ditto.live/
-    private let appID = "dbbb7563-14dc-428c-b335-f2295fb77942" // "<Use Your App ID>"
-    private let authToken = "10577c67-8ee3-48ee-916f-708e29b50c78" // "<Use Your Auth Token>"
+    private let appID = "<Use Your App ID>"
+    private let authToken = "<Use Your Auth Token>"
 
     private init() {
         setupDitto()
@@ -82,6 +85,54 @@ final class DittoManager {
             print("attachment tokens: \(self?.attachmentTokens ?? [])")
         }
     }
+
+    // MARK: - Internal Access
+
+    func fetchAttachment(
+        id: String,
+        token: DittoAttachmentToken,
+        progress: @escaping (_ percent: Int) -> Void,
+        completionHandler: @escaping (_ image: UIImage) -> Void
+    ) {
+        let fetcher = collection?.fetchAttachment(token: token) { [weak self] event in
+            guard let self = self else { return }
+
+            switch event {
+            case .progress(let downloadedBytes, let totalBytes):
+                let percent = Int(Double(downloadedBytes) / Double(totalBytes) * 100)
+                progress(percent)
+
+            case .completed(let attachment):
+                do {
+                    let data = try attachment.getData()
+                    if let image = UIImage(data: data) {
+                        completionHandler(image)
+                    }
+                } catch {
+                    assertionFailure("\(#function) ERROR: \(error.localizedDescription)")
+                }
+
+            case .deleted:
+                self.attachmentFetchers.removeAll(where: { $0.keys.first == id })
+
+            @unknown default:
+                self.attachmentFetchers.removeAll(where: { $0.keys.first == id })
+
+                assertionFailure("unknown case \(#function)")
+            }
+        }
+
+        attachmentFetchers.append([id: fetcher])
+    }
+
+    func stopFetchingAttachment(id: String) {
+        guard let attachment = attachmentFetchers.first(where: { $0.keys.first == id }) else { return }
+        guard let fetcherOptional = attachment[id] else { return }
+        guard let fetcher = fetcherOptional else { return }
+
+        fetcher.stop()
+        attachmentFetchers.removeAll(where: { $0.keys.first == id })
+    }
 }
 
 
@@ -100,7 +151,7 @@ extension DittoManager {
     /// Data needs to be written locally first to be an attachment
     private func writeToLocal(_ image: UIImage) -> URL {
         let url = fileURL(image: image)
-        guard let data = imageData(image) else { assertionFailure(); return URL(filePath: "") }
+        guard let data = imageData(image) else { assertionFailure(); return URL(fileURLWithPath: "") }
 
         do {
             try data.write(to: url)
@@ -144,7 +195,7 @@ extension DittoManager {
 
     private func insertNewAttachmentToCollection(_ url: URL) {
         guard let collection = collection else { assertionFailure(); return }
-        guard let attachment = collection.newAttachment(path: url.path()) else { assertionFailure(); return }
+        guard let attachment = collection.newAttachment(path: url.path) else { assertionFailure(); return }
 
         // using url as doc ID here as an example
         let docID = url.lastPathComponent
