@@ -8,6 +8,24 @@
         "revision" : "9304791eb54dc84913b76cdaf512cf267f5391f2",
         "version" : "3.0.5"
       }
+    },
+    {
+      "identity" : "dittoswifttools",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/getditto/DittoSwiftTools",
+      "state" : {
+        "branch" : "main",
+        "revision" : "6a6009368f807fbdae86aaa8d864401a71fbede5"
+      }
+    },
+    {
+      "identity" : "swift-collections",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-collections",
+      "state" : {
+        "revision" : "937e904258d22af6e447a0b72c0bc67583ef64a2",
+        "version" : "1.0.4"
+      }
     }
   ],
   "version" : 2

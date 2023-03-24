@@ -8,6 +8,7 @@
 import UIKit
 import Combine
 import DittoSwift
+import DittoPresenceViewer
 
 // Documentation: https://docs.ditto.live/
 
@@ -132,6 +133,11 @@ final class DittoManager {
 
         fetcher.stop()
         attachmentFetchers.removeAll(where: { $0.keys.first == id })
+    }
+
+    var presenceViewer: UIViewController? {
+        guard let ditto = ditto else { assertionFailure(); return nil }
+        return DittoPresenceView(ditto: ditto).viewController
     }
 }
 

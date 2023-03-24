@@ -35,10 +35,18 @@ final class ViewController: UIViewController {
 
         let plusButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .done, target: self, action: #selector(plusDidTap))
         navigationItem.rightBarButtonItem = plusButton
+
+        let peerButton = UIBarButtonItem(title: "Peers", style: .done, target: self, action: #selector(peerDidTap))
+        navigationItem.leftBarButtonItem = peerButton
     }
 
     @objc private func plusDidTap() {
         present(photoPicker, animated: true)
+    }
+
+    @objc private func peerDidTap() {
+        guard let presenceViewer = dittoManager.presenceViewer else { return }
+        present(presenceViewer, animated: true)
     }
 
     private func setupTableView() {

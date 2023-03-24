@@ -13,6 +13,10 @@
 		CC4C681729BA08420004B482 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC4C681529BA08420004B482 /* Main.storyboard */; };
 		CC4C681929BA08430004B482 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC4C681829BA08430004B482 /* Assets.xcassets */; };
 		CC4C681C29BA08430004B482 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC4C681A29BA08430004B482 /* LaunchScreen.storyboard */; };
+		CCAEC82929CD36B300E8A6C4 /* DittoDataBrowser in Frameworks */ = {isa = PBXBuildFile; productRef = CCAEC82829CD36B300E8A6C4 /* DittoDataBrowser */; };
+		CCAEC82B29CD36B300E8A6C4 /* DittoDiskUsage in Frameworks */ = {isa = PBXBuildFile; productRef = CCAEC82A29CD36B300E8A6C4 /* DittoDiskUsage */; };
+		CCAEC82D29CD36B300E8A6C4 /* DittoExportLogs in Frameworks */ = {isa = PBXBuildFile; productRef = CCAEC82C29CD36B300E8A6C4 /* DittoExportLogs */; };
+		CCAEC82F29CD36B300E8A6C4 /* DittoPresenceViewer in Frameworks */ = {isa = PBXBuildFile; productRef = CCAEC82E29CD36B300E8A6C4 /* DittoPresenceViewer */; };
 		CCBEB31829C00BEF008BFF77 /* ImageDisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBEB31729C00BEF008BFF77 /* ImageDisplayViewController.swift */; };
 		CCCC99E929BA0906007BCF05 /* DittoObjC in Frameworks */ = {isa = PBXBuildFile; productRef = CCCC99E829BA0906007BCF05 /* DittoObjC */; };
 		CCCC99EB29BA0906007BCF05 /* DittoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CCCC99EA29BA0906007BCF05 /* DittoSwift */; };
@@ -37,7 +41,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCAEC82929CD36B300E8A6C4 /* DittoDataBrowser in Frameworks */,
+				CCAEC82D29CD36B300E8A6C4 /* DittoExportLogs in Frameworks */,
 				CCCC99E929BA0906007BCF05 /* DittoObjC in Frameworks */,
+				CCAEC82B29CD36B300E8A6C4 /* DittoDiskUsage in Frameworks */,
+				CCAEC82F29CD36B300E8A6C4 /* DittoPresenceViewer in Frameworks */,
 				CCCC99EB29BA0906007BCF05 /* DittoSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -96,6 +104,10 @@
 			packageProductDependencies = (
 				CCCC99E829BA0906007BCF05 /* DittoObjC */,
 				CCCC99EA29BA0906007BCF05 /* DittoSwift */,
+				CCAEC82829CD36B300E8A6C4 /* DittoDataBrowser */,
+				CCAEC82A29CD36B300E8A6C4 /* DittoDiskUsage */,
+				CCAEC82C29CD36B300E8A6C4 /* DittoExportLogs */,
+				CCAEC82E29CD36B300E8A6C4 /* DittoPresenceViewer */,
 			);
 			productName = AttachmentExampleUIKit;
 			productReference = CC4C680C29BA08420004B482 /* AttachmentExampleUIKit.app */;
@@ -127,6 +139,7 @@
 			mainGroup = CC4C680329BA08420004B482;
 			packageReferences = (
 				CCCC99E729BA0906007BCF05 /* XCRemoteSwiftPackageReference "DittoSwiftPackage" */,
+				CCAEC82729CD36B300E8A6C4 /* XCRemoteSwiftPackageReference "DittoSwiftTools" */,
 			);
 			productRefGroup = CC4C680D29BA08420004B482 /* Products */;
 			projectDirPath = "";
@@ -381,6 +394,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		CCAEC82729CD36B300E8A6C4 /* XCRemoteSwiftPackageReference "DittoSwiftTools" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/getditto/DittoSwiftTools";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		CCCC99E729BA0906007BCF05 /* XCRemoteSwiftPackageReference "DittoSwiftPackage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/getditto/DittoSwiftPackage";
@@ -392,6 +413,26 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		CCAEC82829CD36B300E8A6C4 /* DittoDataBrowser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CCAEC82729CD36B300E8A6C4 /* XCRemoteSwiftPackageReference "DittoSwiftTools" */;
+			productName = DittoDataBrowser;
+		};
+		CCAEC82A29CD36B300E8A6C4 /* DittoDiskUsage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CCAEC82729CD36B300E8A6C4 /* XCRemoteSwiftPackageReference "DittoSwiftTools" */;
+			productName = DittoDiskUsage;
+		};
+		CCAEC82C29CD36B300E8A6C4 /* DittoExportLogs */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CCAEC82729CD36B300E8A6C4 /* XCRemoteSwiftPackageReference "DittoSwiftTools" */;
+			productName = DittoExportLogs;
+		};
+		CCAEC82E29CD36B300E8A6C4 /* DittoPresenceViewer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CCAEC82729CD36B300E8A6C4 /* XCRemoteSwiftPackageReference "DittoSwiftTools" */;
+			productName = DittoPresenceViewer;
+		};
 		CCCC99E829BA0906007BCF05 /* DittoObjC */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CCCC99E729BA0906007BCF05 /* XCRemoteSwiftPackageReference "DittoSwiftPackage" */;
